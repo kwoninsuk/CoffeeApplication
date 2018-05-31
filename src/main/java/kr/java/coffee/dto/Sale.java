@@ -1,13 +1,15 @@
 package kr.java.coffee.dto;
 
-public class Sale {
+import kr.java.swinglibrary.component.ToArray;
+
+public class Sale implements ToArray{
 	private int no;
 	private Product product; // 제품
 	private int saleCnt; // 판매수량
 	private int marginRate; // 마진율
-
+	private SaleDetail saleDetail;
+	
 	public Sale() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Sale(int no) {
@@ -21,45 +23,72 @@ public class Sale {
 		this.marginRate = marginRate;
 	}
 
+	public Sale(int no, Product product, int saleCnt, int marginRate, SaleDetail saleDetail) {
+		this.no = no;
+		this.product = product;
+		this.saleCnt = saleCnt;
+		this.marginRate = marginRate;
+		this.saleDetail = saleDetail;
+	}
 
-	
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public int getSaleCnt() {
+		return saleCnt;
+	}
+
+	public void setSaleCnt(int saleCnt) {
+		this.saleCnt = saleCnt;
+	}
+
+	public int getMarginRate() {
+		return marginRate;
+	}
+
+	public void setMarginRate(int marginRate) {
+		this.marginRate = marginRate;
+	}
+
+	public SaleDetail getSaleDetail() {
+		return saleDetail;
+	}
+
+	public void setSaleDetail(SaleDetail saleDetail) {
+		this.saleDetail = saleDetail;
+	}
 
 	@Override
 	public String toString() {
-		return String.format("Sale [%s, %s, %s, %s]", no, product, saleCnt, marginRate);
+		return String.format("Sale [%s, %s, %s, %s, %s]", no, product, saleCnt, marginRate, saleDetail);
 	}
 
-	public String getCode() {
-		return product.getCode();
+	@Override
+	public Object[] toArray() {
+		if (saleDetail == null) {
+			return new Object[] { no, product.getCode(), saleCnt, marginRate+"%" };
+		}else {
+			return new Object[] { saleDetail.getRank(), product.getCode(), product.getName(), 
+					String.format("%,d", product.getPrice()), saleCnt, 
+					String.format("%,d", saleDetail.getSupplyPrice()), 
+					String.format("%,d", saleDetail.getAddTax()),
+					String.format("%,d", saleDetail.getSalePrice()), 
+					marginRate+"%", 
+					String.format("%,d", saleDetail.getMarginPrice()) };
+		}
 	}
 
-	public void setCode(String code) {
-		product.setCode(code);
-	}
-
-	public String getName() {
-		return product.getName();
-	}
-
-	public void setName(String name) {
-		product.setName(name);
-	}
-
-	public int getPrice() {
-		return product.getPrice();
-	}
-
-	public void setPrice(int price) {
-		product.setPrice(price);
-	}
-
-	public int hashCode() {
-		return product.hashCode();
-	}
-
-	public boolean equals(Object obj) {
-		return product.equals(obj);
-	}
-
-	
 }
