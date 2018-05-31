@@ -15,8 +15,10 @@ public class Main {
 
 		if (p1.equals(p2)) {
 			System.out.println("같음");
+
 		} else {
 			System.out.println("다름");
+		//이문장은 깃허브에서 작성
 		}
 		// 이 부분은 로컬에서 추가한 수정
 	}
